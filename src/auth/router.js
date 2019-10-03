@@ -38,4 +38,35 @@ authRouter.post('/key', auth, (req,res,next) => {
   res.status(200).send(key);
 });
 
+authRouter.get('/public-stuff', auth(), (req,res,next) => {
+
+});
+
+authRouter.get('/hidden-stuff', auth('user'), (req,res,next) => {
+
+});
+
+authRouter.get('/something-to-read', auth('read'), (req,res,next) => {
+
+})
+
+authRouter.post('/create-a-thing', auth('create'), (req,res,next) => {
+  
+})
+
+authRouter.put('/update', auth('update'), (req,res,next) => {
+  
+});
+
+authRouter.patch('/jp', auth('update'), (req,res,next) => {
+  
+});
+
+authRouter.delete('/bye-bye', auth('delete'), (req,res,next) => {
+  
+});
+
+authRouter.get('everything', auth('superuser'), (req,res,next) => {
+  
+});
 module.exports = authRouter;

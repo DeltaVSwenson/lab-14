@@ -15,14 +15,33 @@ const users = new mongoose.Schema({
   username: {type:String, required:true, unique:true},
   password: {type:String, required:true},
   email: {type: String},
-  role: {type: String, default:'user', enum: ['admin','editor','user']},
+  role: {type: String, default:'user', enum: ['superuser','admin','editor','user']},
+}, {
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
 });
 
 const capabilities = {
-  admin: ['create','read','update','delete'],
-  editor: ['create', 'read', 'update'],
-  user: ['read'],
+  superuser: ['user','create', 'read', 'update', 'delete', 'laugh'],
+  admin: ['user','create','read','update','delete'],
+  editor: ['user','create', 'read', 'update'],
+  user: ['user','read'],
 };
+
+users.virtual('acl', {
+  ref: 'roles',
+  localField: 'role',
+  foreignField: 'role',
+  justOne: true,
+});
+
+users.pre('findOne', function(){
+  try{
+    this.populate('acl');
+  } catch(err) {
+    console.error(err);
+  }
+});
 
 users.pre('save', async function() {
   if (this.isModified('password'))
@@ -30,6 +49,16 @@ users.pre('save', async function() {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
+
+users.post('save', function() {
+  try {
+    this.populate('acl');
+    return this.execPopulate();
+  } catch(err) {
+    console.error(err);
+  }
+})
+
 users.statics.createFromOauth = function(email) {
 
   if(! email) { return Promise.reject('Validation Error'); }
@@ -97,5 +126,9 @@ users.methods.can = function(capability) {
 users.methods.generateKey = function() {
   return this.generateToken('key');
 };
+
+users.methods.can = function(capability){
+  return this.acl.capabilities.includes(capability);
+}
 
 module.exports = mongoose.model('users', users);

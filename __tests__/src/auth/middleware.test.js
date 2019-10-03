@@ -8,16 +8,18 @@ const Users = require('../../../src/auth/users-model.js');
 const Roles = require('../../../src/auth/roles-model.js');
 
 let users = {
+  superuser: {username: 'superuser', password: 'password', role: 'superuser'},
   admin: {username: 'admin', password: 'password', role: 'admin'},
   editor: {username: 'editor', password: 'password', role: 'editor'},
   user: {username: 'user', password: 'password', role: 'user'},
 };
 
-beforeAll(async (done) => {
+beforeAll(async () => {
+  const superuser = await new Users(users.superuser).save();
   const admin = await new Users(users.admin).save();
   const editor = await new Users(users.editor).save();
   const user = await new Users(users.user).save();
-  done()
+  
 });
 
 /*
@@ -121,11 +123,35 @@ describe('Auth Middleware', () => {
   describe('user authorization', () => {
 
     it('restricts access to a valid user without permissions', () => {
+      let req = {
+        headers: {
+          authorization: 'Basic YWRtaW46cGFzc3dvcmQ=',
+        },
+      };
+      let res = {};
+      let next = jest.fn();
+      let middleware = auth('poop');
 
+      return middleware(req,res,next)
+      .then( () => {
+        expect(next).toHaveBeenCalledWith(errorMessage);
+      });
     }); // it()
 
     it('grants access when a user has permission', () => {
+      let req = {
+        headers: {
+          authorization: 'Basic YWRtaW46cGFzc3dvcmQ=',
+        },
+      };
+      let res = {};
+      let next = jest.fn();
+      let middleware = auth('read');
 
+      return middleware(req,res,next)
+      .then( () => {
+        expect(next).toHaveBeenCalledWith();
+      });
     }); // it()
 
   }); // describe()

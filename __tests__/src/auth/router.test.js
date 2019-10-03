@@ -11,6 +11,7 @@ const supergoose = require('../../supergoose.js');
 const mockRequest = supergoose(server);
 
 let users = {
+  superuser: {username: 'superuser', password: 'password', role: 'superuser'},
   admin: {username: 'admin', password: 'password', role: 'admin'},
   editor: {username: 'editor', password: 'password', role: 'editor'},
   user: {username: 'user', password: 'password', role: 'user'},
