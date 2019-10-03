@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const mongoose = require('mongoose');
@@ -57,7 +58,7 @@ users.post('save', function() {
   } catch(err) {
     console.error(err);
   }
-})
+});
 
 users.statics.createFromOauth = function(email) {
 
@@ -129,6 +130,6 @@ users.methods.generateKey = function() {
 
 users.methods.can = function(capability){
   return this.acl.capabilities.includes(capability);
-}
+};
 
 module.exports = mongoose.model('users', users);

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const express = require('express');
@@ -48,11 +49,11 @@ authRouter.get('/hidden-stuff', auth('user'), (req,res,next) => {
 
 authRouter.get('/something-to-read', auth('read'), (req,res,next) => {
   res.sendStatus(200);
-})
+});
 
 authRouter.post('/create-a-thing', auth('create'), (req,res,next) => {
   res.sendStatus(200);
-})
+});
 
 authRouter.put('/update', auth('update'), (req,res,next) => {
   res.sendStatus(200);
