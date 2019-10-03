@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "API routes\r ### Author: Student/Group Name\r Jacob Swenson\r ### Links and Resources\r * [submission PR](https://github.com/DeltaVSwenson/lab-08/pull/1)\r * [travis](https://travis-ci.com/DeltaVSwenson/lab-08/)\r * [back-end](http://xyz.com) (when applicable)\r * [front-end](http://xyz.com) (when applicable)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -20,9 +20,11 @@
     "cors": "^2.8.4",
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",
+    "eslint": "^6.5.1",
     "express": "^4.16.3",
     "jest": "^24.9.0",
     "jsonwebtoken": "^8.4.0",
+    "lint": "^0.7.0",
     "mongodb-memory-server": "^5.1.4",
     "mongoose": "^5.3.13",
     "mongoose-schema-jsonschema": "^1.1.15",
@@ -30,5 +32,14 @@
     "require-directory": "^2.1.1",
     "supertest": "^3.3.0",
     "swagger-ui-express": "^4.0.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeltaVSwenson/lab-14.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DeltaVSwenson/lab-14/issues"
+  },
+  "homepage": "https://github.com/DeltaVSwenson/lab-14#readme"
 }
