@@ -15,6 +15,7 @@ let users = {
 };
 
 beforeAll(async () => {
+  const adminRole = await new Roles({role: 'admin', capabilities: ['read']}).save();
   const superuser = await new Users(users.superuser).save();
   const admin = await new Users(users.admin).save();
   const editor = await new Users(users.editor).save();
