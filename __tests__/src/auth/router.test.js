@@ -4,6 +4,7 @@ process.env.SECRET = 'test';
 
 const jwt = require('jsonwebtoken');
 
+// eslint-disable-next-line no-unused-vars
 const Roles = require('../../../src/auth/roles-model.js');
 const server = require('../../../src/app.js').server;
 const supergoose = require('../../supergoose.js');
@@ -11,6 +12,7 @@ const supergoose = require('../../supergoose.js');
 const mockRequest = supergoose(server);
 
 let users = {
+  superuser: {username: 'superuser', password: 'password', role: 'superuser'},
   admin: {username: 'admin', password: 'password', role: 'admin'},
   editor: {username: 'editor', password: 'password', role: 'editor'},
   user: {username: 'user', password: 'password', role: 'user'},
